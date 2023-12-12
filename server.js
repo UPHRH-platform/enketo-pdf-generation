@@ -2,13 +2,18 @@ const express = require('express'); // Importing express module
 const app = express(); // Creating an express object
 const port = 8000;  // Setting an port for this application
 const cors = require('cors');
-const pdfShift = require('./routes/pdfshift-routes');
-const pdfPuppeteer = require('./routes/puppeter-routes');
 
+const pdfDownloader = require('./routes/routes');
 
-app.options('*', cors())
-app.use('/convert', pdfShift);
-app.use('/convert-via-puppeteer', pdfPuppeteer);
+const options = {
+    origin: true,
+    methods: ["POST"],
+    credentials: true,
+    maxAge: 3600
+  };
+app.options('*', cors(options))
+app.use('/convert-via-puppeteer',cors(options), pdfDownloader);
+app.use('/download',cors(options), pdfDownloader);
 
 // Starting server using listen function
 app.listen(port, function (err) {
