@@ -1,10 +1,19 @@
 FROM node:18.16.0
+
+ 
+
+# Create app directory
 #WORKDIR /app
 
  
 
 # Install wget and gconf-service
 
+ 
+
+
+# Install Chrome
+# Install necessary dependencies 
 #RUN apt-get update &&    apt-get install -y wget gnupg ca-certificates &&     rm -rf /var/lib/apt/lists/*
 #RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - &&      echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list &&      apt-get update &&     apt-get install -y google-chrome-stable &&     rm -rf /var/lib/apt/lists/*
 
@@ -32,6 +41,8 @@ FROM node:18.16.0
 # Create app directory
 WORKDIR /
 
+ 
+
 RUN apt-get install -y wget
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
@@ -58,7 +69,13 @@ RUN npm cache clean --force
 
 COPY . .
 
-RUN npm install 
+ 
+
+RUN npm install
+
+ 
+
+ 
 
 EXPOSE 8000
-CMD [ "node", "server.js" ] 
+CMD [ "node", "server.js" ]
